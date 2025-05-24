@@ -22,7 +22,7 @@ class FileProtocol:
     def __init__(self):
         self.file = FileInterface()
     def proses_string(self, string_datamasuk=''):
-        logging.warning(f"string diproses: {string_datamasuk}")
+        #logging.warning(f"string diproses: {string_datamasuk}")
         try:
             # Tangani upload via JSON
             if string_datamasuk.strip().startswith('{'):
