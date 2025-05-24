@@ -36,6 +36,7 @@ def send_command(command_str=""):
         logging.warning(f"error during data receiving: {e}")
         return False
 
+
 def remote_list():
     command_str = "LIST"
     hasil = send_command(command_str)
@@ -63,6 +64,7 @@ def remote_get(filename=""):
         print(f"Gagal mengunduh file: {hasil['data']}")
         return False
 
+
 def remote_upload(filepath):
     try:
         filename = os.path.basename(filepath)
@@ -82,6 +84,7 @@ def remote_upload(filepath):
     except Exception as e:
         print(f"Error saat upload: {e}")
 
+
 def remote_delete(filename):
     command_str = f"DELETE {filename}"
     hasil = send_command(command_str)
@@ -90,15 +93,33 @@ def remote_delete(filename):
     else:
         print(f"Gagal menghapus file: {hasil['data']}")
 
+def menu():
+    while True:
+        print("\nMenu:")
+        print("1. Lihat daftar file di server")
+        print("2. Download file dari server")
+        print("3. Upload file ke server")
+        print("4. Hapus file di server")
+        print("5. Keluar")
+
+        pilihan = input("Pilih (1-5): ")
+
+        if pilihan == '1':
+            remote_list()
+        elif pilihan == '2':
+            filename = input("Masukkan nama file yang ingin diunduh: ")
+            remote_get(filename)
+        elif pilihan == '3':
+            filepath = input("Masukkan path file yang ingin diupload: ")
+            remote_upload(filepath)
+        elif pilihan == '4':
+            filename = input("Masukkan nama file yang ingin dihapus: ")
+            remote_delete(filename)
+        elif pilihan == '5':
+            print("Keluar.")
+            break
+        else:
+            print("Pilihan tidak valid.")
+
 if __name__ == '__main__':
-    # Contoh penggunaan otomatis:
-    
-    remote_list()  # Menampilkan daftar file
-
-    remote_get("file.txt")
-
-    remote_upload("aiueo.txt")
-
-    remote_delete("file.txt")
-
-    remote_list()
+    menu()
